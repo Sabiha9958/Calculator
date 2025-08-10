@@ -1,0 +1,651 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+:root {
+  --bg-light: #eef3f7;
+  --bg-dark: #121212;
+  --text-light: #222;
+  --text-dark: #eee;
+  --btn-bg-light: rgba(255, 255, 255, 0.88);
+  --btn-bg-dark: rgba(0, 0, 0, 0.6);
+  --accent-light: #0057ff;
+  --accent-dark: #00ffd5;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-dark: rgba(0, 255, 213, 0.3);
+}
+
+/* Base body styles and theme transitions */
+body {
+  background: var(--bg-light);
+  color: var(--text-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  transition: background 0.4s ease, color 0.4s ease;
+  position: relative;
+  font-weight: 500;
+}
+
+/* Background fire and ice rain layers */
+#fire-rain,
+#ice-rain {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 50vw;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+#fire-rain {
+  left: 0;
+  background: transparent;
+}
+
+#ice-rain {
+  right: 0;
+  background: transparent;
+}
+
+/* Dark theme overrides */
+body.dark {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+/* Calculator wrapper with perspective for 3D effect */
+.calc-wrapper {
+  perspective: 1200px;
+  z-index: 10;
+}
+
+/* Main container flex horizontally */
+.calculator-container {
+  display: flex;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  max-width: 900px;
+  width: 95vw;
+  background: transparent;
+  transition: width 0.5s ease;
+}
+
+/* Main calculator styles */
+.calculator-main {
+  flex-shrink: 0;
+  background: var(--btn-bg-light);
+  padding: 20px 25px 25px 25px;
+  border-radius: 20px 0 0 20px;
+  width: 420px;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1),
+    0 15px 35px rgba(0, 87, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  transition: width 0.5s ease, box-shadow 0.5s ease;
+  transform-style: preserve-3d;
+  background: linear-gradient(135deg, #f0f4ff, #d9e4ff);
+  position: relative;
+  z-index: 20;
+  overflow: hidden;
+  user-select: none;
+}
+
+body.dark .calculator-main {
+  background: linear-gradient(135deg, #002f3d, #004b60);
+  box-shadow: inset 0 0 30px var(--shadow-dark), 0 20px 40px var(--accent-dark);
+}
+
+/* Heat and cold attack effect animations */
+.calculator-main.fire-attack {
+  animation: fireGlow 1.2s ease forwards;
+  box-shadow: 0 0 50px 8px #ff4500, inset 0 0 25px 4px #ff651f;
+}
+.calculator-main.ice-attack {
+  animation: iceGlow 1.2s ease forwards;
+  box-shadow: 0 0 50px 10px #8ee7ff, inset 0 0 30px 7px #00aaff;
+}
+
+@keyframes fireGlow {
+  0% {
+    box-shadow: 0 0 10px 3px #ff4500, inset 0 0 15px 2px #ff651f;
+  }
+  50% {
+    box-shadow: 0 0 60px 10px #ff3300, inset 0 0 40px 10px #ff8551;
+  }
+  100% {
+    box-shadow: 0 0 20px 6px #ff4400, inset 0 0 30px 6px #ff7a3f;
+  }
+}
+
+@keyframes iceGlow {
+  0% {
+    box-shadow: 0 0 15px 4px #77cfff, inset 0 0 20px 3px #00bfff;
+  }
+  50% {
+    box-shadow: 0 0 70px 14px #339dff, inset 0 0 50px 15px #00d0ff;
+  }
+  100% {
+    box-shadow: 0 0 30px 8px #1e9eff, inset 0 0 38px 9px #00c8ff;
+  }
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.header h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: inherit;
+  user-select: none;
+}
+
+.header-buttons button {
+  margin-left: 12px;
+  background: var(--btn-bg-light);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.15rem;
+  padding: 7px 14px;
+  color: var(--text-light);
+  box-shadow: 0 3px 8px var(--shadow-light);
+  transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+  user-select: none;
+}
+
+body.dark .header-buttons button {
+  background: var(--btn-bg-dark);
+  color: var(--text-dark);
+  box-shadow: 0 3px 10px var(--shadow-dark);
+}
+
+.header-buttons button:hover {
+  background: var(--accent-light);
+  color: white;
+  box-shadow: 0 0 20px var(--accent-light);
+}
+
+body.dark .header-buttons button:hover {
+  background: var(--accent-dark);
+  box-shadow: 0 0 30px var(--accent-dark);
+}
+
+/* Display */
+#display {
+  width: 100%;
+  height: 65px;
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid var(--accent-light);
+  padding: 14px 18px;
+  color: var(--text-light);
+  box-shadow: 0 0 12px var(--accent-light);
+  border-radius: 12px;
+  outline: none;
+  text-align: right;
+  transition: border-color 0.3s, box-shadow 0.3s, color 0.3s;
+  user-select: text;
+}
+
+body.dark #display {
+  border-color: var(--accent-dark);
+  box-shadow: 0 0 20px var(--accent-dark);
+  color: var(--text-dark);
+}
+
+/* Buttons grid */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px 16px;
+  margin-top: 22px;
+}
+
+button {
+  background: var(--btn-bg-light);
+  color: var(--text-light);
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 14px;
+  padding: 18px 0;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15),
+    inset 0 -3px 6px rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.12s ease, background 0.2s ease,
+    color 0.3s ease;
+  user-select: none;
+}
+
+body.dark button {
+  background: var(--btn-bg-dark);
+  color: var(--text-dark);
+  box-shadow: 0 6px 18px rgba(0, 255, 213, 0.3),
+    inset 0 -4px 8px rgba(0, 255, 213, 0.15);
+}
+
+button:hover {
+  box-shadow: 0 0 20px var(--accent-light), inset 0 0 15px var(--accent-light);
+  background: var(--accent-light);
+  color: white;
+  transform: translateY(-2px);
+}
+
+body.dark button:hover {
+  box-shadow: 0 0 30px var(--accent-dark), inset 0 0 20px var(--accent-dark);
+  background: var(--accent-dark);
+  color: black;
+}
+
+button:active {
+  transform: translateY(2px) scale(0.96);
+  box-shadow: inset 0 5px 12px rgba(0, 0, 0, 0.6) !important;
+}
+
+.btn.eq {
+  grid-column: span 4;
+  background: var(--accent-light);
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 0 30px var(--accent-light), inset 0 0 40px var(--accent-light);
+  transition: background 0.3s;
+}
+
+body.dark .btn.eq {
+  background: var(--accent-dark);
+  color: black;
+  box-shadow: 0 0 45px var(--accent-dark), inset 0 0 50px var(--accent-dark);
+}
+
+/* History panel styling */
+.history {
+  margin-top: 25px;
+  background: var(--btn-bg-light);
+  padding: 13px 18px;
+  border-radius: 14px;
+  flex-shrink: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.05);
+  font-size: 0.92rem;
+  color: var(--text-light);
+}
+
+body.dark .history {
+  background: var(--btn-bg-dark);
+  color: var(--text-dark);
+  box-shadow: inset 0 0 15px rgba(0, 255, 213, 0.15);
+}
+
+.history h3 {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+#history-list {
+  list-style: none;
+  padding-left: 5px;
+  user-select: text;
+}
+
+#history-list li {
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+/* ADVANCED PANEL STYLE */
+#advanced-panel {
+  width: 0;
+  background: linear-gradient(135deg, #ff3500, #ffea00);
+  border-radius: 0 20px 20px 0;
+  box-shadow: -6px 0 30px rgba(255, 130, 0, 0.8);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 15px 30px 15px;
+  color: #fff;
+  font-weight: 700;
+  user-select: none;
+  transition: width 0.5s ease, box-shadow 0.5s ease;
+  position: relative;
+  z-index: 20;
+  backdrop-filter: blur(12px);
+}
+
+body.dark #advanced-panel {
+  background: linear-gradient(135deg, #00ffd5, #005f6b);
+  box-shadow: -8px 0 45px rgba(0, 255, 213, 0.85);
+  color: #00f9ff;
+}
+
+/* Show advanced panel fully */
+#advanced-panel.show {
+  width: 340px;
+}
+
+/* Advanced panel headings */
+#advanced-panel h3 {
+  text-align: center;
+  font-size: 1.7rem;
+  margin-bottom: 18px;
+  color: inherit;
+}
+
+/* Advanced buttons */
+.advanced-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px 16px;
+  user-select: none;
+}
+
+#advanced-panel button {
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25),
+    inset 0 -2px 8px rgba(255, 255, 255, 0.3);
+  border-radius: 14px;
+  padding: 18px 0;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: inherit;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.12s ease;
+}
+
+#advanced-panel button:hover {
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.75),
+    inset 0 0 18px rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+#advanced-panel button:active {
+  transform: translateY(2px) scale(0.94);
+  box-shadow: inset 0 5px 14px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Unit converter styles */
+.unit-converter {
+  margin-top: 26px;
+  padding: 12px 15px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  color: inherit;
+  user-select: none;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.4);
+}
+
+body.dark .unit-converter {
+  background: rgba(0, 255, 213, 0.26);
+  box-shadow: inset 0 0 25px rgba(0, 255, 213, 0.5);
+}
+
+.unit-converter h4 {
+  margin-bottom: 12px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: inherit;
+}
+
+.unit-converter input[type="number"],
+.unit-converter select {
+  width: calc(50% - 12px);
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.25);
+  transition: box-shadow 0.4s ease;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.2);
+  text-align: center;
+}
+
+body.dark .unit-converter input[type="number"],
+body.dark .unit-converter select {
+  background: rgba(0, 255, 213, 0.2);
+  box-shadow: inset 0 0 15px rgba(0, 255, 213, 0.4);
+}
+
+.unit-converter input[type="number"]:focus,
+.unit-converter select:focus {
+  box-shadow: inset 0 0 20px var(--accent-light);
+}
+
+body.dark .unit-converter input[type="number"]:focus,
+body.dark .unit-converter select:focus {
+  box-shadow: inset 0 0 23px var(--accent-dark);
+}
+
+.unit-converter select {
+  margin-left: 10px;
+}
+
+/* Place the "to" text in center, balanced by flexbox */
+.unit-converter input,
+.unit-converter select {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Convert button styles */
+#convert-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px 0;
+  background: var(--accent-light);
+  border: none;
+  border-radius: 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  box-shadow: 0 0 15px var(--accent-light);
+  cursor: pointer;
+  transition: background 0.3s ease;
+  outline: none;
+  user-select: none;
+}
+
+body.dark #convert-btn {
+  background: var(--accent-dark);
+  box-shadow: 0 0 25px var(--accent-dark);
+}
+
+#convert-btn:hover {
+  filter: brightness(1.15);
+}
+
+/* Result text */
+#unit-result {
+  margin-top: 14px;
+  font-size: 1.1rem;
+  text-align: center;
+  font-weight: 700;
+  min-height: 24px;
+  user-select: text;
+  color: inherit;
+}
+
+/* Fire and Ice Rain container positioning */
+#fire-rain {
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 50vw;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+#ice-rain {
+  right: 0;
+  top: 0;
+  height: 100vh;
+  width: 50vw;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+/* Float animation for main calculator */
+.calc-wrapper {
+  perspective: 1300px;
+}
+
+.calculator-container {
+  transition: width 0.5s ease;
+  width: 420px;
+}
+
+/* Expanded with advanced panel open */
+.calculator-container.expanded {
+  width: 760px;
+}
+
+/* 3D floating neon effect */
+.calculator-main {
+  animation: floaty 5s ease-in-out infinite;
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0) rotateX(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotateX(2deg);
+  }
+}
+
+/* Additional fire heatwaves effect */
+#fire-rain::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  bottom: 0;
+  pointer-events: none;
+  background: radial-gradient(
+      ellipse at center,
+      rgba(255, 80, 20, 0.4),
+      transparent 70%
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba(255, 140, 0, 0.45),
+      transparent 70%
+    );
+  animation: heatwave 4s linear infinite;
+  filter: blur(10px);
+  z-index: -1;
+}
+
+@keyframes heatwave {
+  0% {
+    background-position: 0 0, 20% 80%;
+  }
+  50% {
+    background-position: 10% 10%, 30% 60%;
+  }
+  100% {
+    background-position: 0 0, 20% 80%;
+  }
+}
+
+/* Frosty glow and shimmer effect for ice side */
+#ice-rain::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  right: 0;
+  top: 0;
+  pointer-events: none;
+  background: radial-gradient(
+      circle at top right,
+      rgba(180, 240, 255, 0.25),
+      transparent 70%
+    ),
+    repeating-radial-gradient(
+      circle at center,
+      rgba(210, 250, 255, 0.15) 0 20px,
+      transparent 21px 30px
+    );
+  animation: frostwave 5s linear infinite;
+  filter: blur(12px);
+  z-index: -1;
+}
+
+@keyframes frostwave {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  50% {
+    background-position: 40% 40%, 20% 30%;
+  }
+  100% {
+    background-position: 0 0, 0 0;
+  }
+}
+
+/* Attack particles styling */
+.attack-particle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 15;
+  filter: drop-shadow(0 0 6px);
+  will-change: transform, opacity;
+  user-select: none;
+}
+
+/* Fire attack particle style */
+.attack-particle.fire-attack {
+  background: radial-gradient(
+    circle,
+    rgba(255, 80, 20, 0.9),
+    rgba(255, 20, 0, 0.6)
+  );
+  filter: drop-shadow(0 0 6px rgba(255, 100, 20, 0.8));
+}
+
+/* Ice attack particle style */
+.attack-particle.ice-attack {
+  background: radial-gradient(
+    circle,
+    rgba(180, 240, 255, 0.9),
+    rgba(120, 210, 255, 0.7)
+  );
+  filter: drop-shadow(0 0 10px rgba(50, 180, 255, 0.8));
+}

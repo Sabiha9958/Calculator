@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>3D Smart Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Background containers for fire and ice rain -->
+    <div id="fire-rain"></div>
+    <div id="ice-rain"></div>
+
+    <div class="calc-wrapper">
+      <div class="calculator-container">
+        <!-- BASIC CALCULATOR -->
+        <div class="calculator-main" id="calculator-main">
+          <div class="header">
+            <h2>3D Smart Calculator</h2>
+            <div class="header-buttons">
+              <button id="theme-toggle">🌙 Dark</button>
+              <button id="toggle-advanced">🛠 Show Advanced</button>
+            </div>
+          </div>
+
+          <input
+            type="text"
+            id="display"
+            placeholder="0"
+            readonly
+            aria-label="Calculator display"
+          />
+
+          <div class="buttons basic-buttons">
+            <button class="btn fn" data-action="clear" aria-label="Clear">
+              AC
+            </button>
+            <button class="btn fn" data-action="delete" aria-label="Delete">
+              DEL
+            </button>
+            <button class="btn fn" data-value="(">(</button>
+            <button class="btn fn" data-value=")">)</button>
+
+            <button class="btn num" data-value="7">7</button>
+            <button class="btn num" data-value="8">8</button>
+            <button class="btn num" data-value="9">9</button>
+            <button class="btn op" data-value="/">÷</button>
+
+            <button class="btn num" data-value="4">4</button>
+            <button class="btn num" data-value="5">5</button>
+            <button class="btn num" data-value="6">6</button>
+            <button class="btn op" data-value="*">×</button>
+
+            <button class="btn num" data-value="1">1</button>
+            <button class="btn num" data-value="2">2</button>
+            <button class="btn num" data-value="3">3</button>
+            <button class="btn op" data-value="-">−</button>
+
+            <button class="btn num" data-value="0">0</button>
+            <button class="btn num" data-value=".">.</button>
+            <button class="btn fn" data-value="Math.PI">π</button>
+            <button class="btn op" data-value="+">+</button>
+
+            <button class="btn eq" data-action="equals">=</button>
+          </div>
+
+          <!-- History -->
+          <div class="history" aria-label="Calculation history">
+            <h3>History</h3>
+            <ul id="history-list"></ul>
+          </div>
+        </div>
+
+        <!-- ADVANCED SLIDING PANEL -->
+        <aside
+          id="advanced-panel"
+          role="complementary"
+          aria-label="Advanced calculator tools"
+        >
+          <h3>Advanced Tools</h3>
+          <div class="buttons advanced-buttons">
+            <button class="btn fn" data-value="sqrt(">√</button>
+            <button class="btn fn" data-value="pow(">xʸ</button>
+            <button class="btn fn" data-value="log(">log</button>
+            <button class="btn fn" data-value="ln(">ln</button>
+            <button class="btn fn" data-value="sin(">sin</button>
+            <button class="btn fn" data-value="cos(">cos</button>
+            <button class="btn fn" data-value="tan(">tan</button>
+            <button class="btn fn" data-value="factorial(">x!</button>
+          </div>
+
+          <div class="unit-converter" aria-label="Unit converter">
+            <h4>Unit Converter</h4>
+            <input
+              type="number"
+              id="unit-input"
+              placeholder="Enter value"
+              aria-label="Unit conversion input"
+            />
+            <select id="unit-from" aria-label="Unit from">
+              <option value="m">Meters</option>
+              <option value="km">Kilometers</option>
+              <option value="cm">Centimeters</option>
+              <option value="mm">Millimeters</option>
+            </select>
+            to
+            <select id="unit-to" aria-label="Unit to">
+              <option value="km">Kilometers</option>
+              <option value="m">Meters</option>
+              <option value="cm">Centimeters</option>
+              <option value="mm">Millimeters</option>
+            </select>
+            <button id="convert-btn">Convert</button>
+            <p id="unit-result" aria-live="polite"></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
